@@ -1,0 +1,123 @@
+/* src/components/Header.css */
+
+.header-container {
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #111;
+}
+
+/* ------------------------ */
+/* Upper Header - Contact  */
+/* ------------------------ */
+.upper-header {
+  background-color: #fee2e2;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.upper-left,
+.upper-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.upper-right a {
+  color: #b91c1c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.upper-right a:hover {
+  color: #7f1d1d;
+}
+
+/* ------------------------ */
+/* Lower Header - Logo/Nav */
+/* ------------------------ */
+.lower-header {
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #b91c1c;
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: inline-block;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #b91c1c;
+}
+
+/* Nav Links */
+.nav-links {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.nav-links a {
+  padding: 10px 0;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-links a:hover {
+  color: #dc2626;
+}
+
+/* Show nav when menuOpen = true (apply this class dynamically) */
+.nav-open {
+  display: flex;
+}
+
+/* --------------------------- */
+/* Laptop/Desktop Screens Only */
+/* --------------------------- */
+@media (min-width: 768px) {
+  .upper-header {
+    padding: 8px 40px;
+  }
+
+  .lower-header {
+    padding: 16px 40px;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    margin-top: 0;
+  }
+
+  .nav-links a {
+    margin-left: 24px;
+    padding: 0;
+    border: none;
+  }
+}
