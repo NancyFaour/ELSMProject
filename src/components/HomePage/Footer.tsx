@@ -1,6 +1,5 @@
 'use client';
 
-import '../style/Footer.css';
 
 export default function Footer() {
   return (
@@ -8,12 +7,14 @@ export default function Footer() {
       {/* Newsletter */}
       <div className="newsletter">
         <h2>Want Us To Email You About Special Offers And Updates?</h2>
-        <input type="email" placeholder="Enter Your Email" />
+        <div className="subscribe-form">
+          <input type="email" placeholder="Enter Your Email" className="subscribe-input" />
+          <button className="subscribe-button">Subscribe</button>
+        </div>
       </div>
 
       {/* Sections */}
       <div className="footer-sections">
-        {/* Useful Links */}
         <div className="footer-column">
           <h4>Useful Links</h4>
           <a href="#">Home</a>
@@ -22,7 +23,6 @@ export default function Footer() {
           <a href="#">Contact</a>
         </div>
 
-        {/* About & Contact */}
         <div className="footer-column">
           <h4>About Us</h4>
           <a href="#">Our Mission</a>
@@ -35,7 +35,6 @@ export default function Footer() {
           <a href="#">Email: contact@elms.com</a>
         </div>
 
-        {/* Social */}
         <div className="footer-column">
           <h4>Social Contact</h4>
           <a href="#">Facebook</a>

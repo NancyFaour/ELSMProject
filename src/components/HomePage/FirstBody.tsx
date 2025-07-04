@@ -1,5 +1,5 @@
 'use client'
-import '../style/FirstBody.css'
+
 
 export default function FirstBody() {
   return (

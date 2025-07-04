@@ -1,0 +1,155 @@
+/* Base styles */
+.featured-section {
+  padding: 60px 20px;
+  background-color:#fef2f2;
+  text-align: center;
+}
+
+.featured-subtitle {
+  color: #dc2626;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.featured-title {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+/* Responsive Grid */
+.featured-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Course Card */
+.course-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  text-align: left;
+  position: relative;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Course Image */
+.course-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Floating Price Tag */
+.course-price-tag {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: #cb4154;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Card content */
+.course-content {
+  padding: 20px;
+}
+
+.course-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.course-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.course-reviews {
+  font-size: 12px;
+  color: #777;
+}
+
+.course-description {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0 12px 0;
+  line-height: 1.4;
+}
+
+.course-meta {
+  font-size: 13px;
+  color: #444;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+/* Author & Read More on same line */
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.course-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+
+.read-more {
+  color: #dc2626;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import '../style/Header.css';
 
 import {
   PhoneIcon,

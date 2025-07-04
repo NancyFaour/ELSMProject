@@ -1,49 +1,48 @@
 'use client';
 
 import Link from 'next/link';
-import '../style/PopularCategory.css';
 
 export default function PopularCategory() {
   const categories = [
     {
       title: 'Computer Science',
       courses: 24 ,
-      image: '/images/ComputerScience.jpg',
+      image: '/images/Category/ComputerScience.jpg',
       slug: 'computer-science',
       color: 'LIGHTGREEN'
     },
     {
       title: 'Civil Engineering',
       courses: 40,
-      image: '/images/CivilEngineering.jpg',
+      image: '/images/Category/CivilEngineering.jpg',
       slug: 'civil-engineering',
       color: 'LightBlue'
     },
     {
       title: 'Business Analysis',
       courses: 27,
-      image: '/images/BusinessAnalysis.jpg',
+      image: '/images/Category/BusinessAnalysis.jpg',
       slug: 'business-analysis',
-      color: 'LightBrown'
+      color: 'Brown'
     },
     {
       title: 'Data Science Analytics',
       courses: 28,
-      image: '/images/DataScience.jpg',
+      image: '/images/Category/DataScience.jpg',
       slug: 'data-science-analytics',
       color:'Purple'
     },
     {
       title: 'Learning Management',
       courses: 78,
-      image: '/images/LearningManagement.jpg',
+      image: '/images/Category/LearningManagement.jpg',
       slug: 'learning-management',
       color: 'LightCoral'
     },
     {
       title: 'Computer Engineering',
       courses: 38,
-      image: '/images/ComputerEngineering.jpg',
+      image: '/images/Category/ComputerEngineering.jpg',
       slug: 'computer-engineering',
       color: 'Coral '
     }
