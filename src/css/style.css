@@ -4,7 +4,8 @@
 @import './components/FeaturedCourses.css';
 @import './components/Footer.css';
 @import './components/PopularCategory.css';
-
+@import './components/Upper.css';
+@import './components/CourseOverview.tsx'
 
 
 

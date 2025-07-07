@@ -1,10 +1,15 @@
 'use client';
 
+function generateId(title: string, author: string) {
+  return `${title}-${author}`
+    .toLowerCase()
+    .replace(/\s+/g, '-')         // Replace spaces with hyphens
+    .replace(/[^a-z0-9\-]/g, ''); // Remove special characters
+}
 
 
 const featuredCourses = [
-  { id:1,
-    price: 30,
+  {
     title: 'Adobe XD',
     reviews: 3,
     description: 'Fundamentals of Adobe XD Theory Learn New',
@@ -15,7 +20,7 @@ const featuredCourses = [
     thumbnail: '/images/courses/FundAdobe.jpg',
   },
   {
-    price: 30,
+  
     title: 'Photoshop',
     reviews: 3,
     description: 'Certified Graphic Design with Free Project Course',
@@ -27,7 +32,7 @@ const featuredCourses = [
   },
 
 {
-        price: 30,
+    
         title: 'Photoshop',
         reviews: 3,
         description: 'Theory Learn New Student And Fundamentals',
@@ -39,7 +44,7 @@ const featuredCourses = [
 
 },
 {
-        price: 30,
+       
         title: 'Adobe XD',
         reviews: 3,
         description: 'Computer Fundamentals Basic Startup Ultricies Vitae',
@@ -50,7 +55,7 @@ const featuredCourses = [
         thumbnail: '/images/courses/CompFund.jpg',
     },
     {
-        price: 30,
+     
         title: 'Adobe XD',
         reviews: 3,
         description: 'Computer Fundamentals Basic Startup Ultricies VitaeBoozy Halloween Drinks for the Grown Eleifend Kuismod',
@@ -61,7 +66,7 @@ const featuredCourses = [
         thumbnail: '/images/courses/BoozyHalloween.jpg',
     },
     {
-        price: 30,
+       
         title: 'Adobe XD',
         reviews: 3,
         description: 'Student Want to Learn About Science And Arts',
@@ -80,37 +85,53 @@ export default function FeaturedCourses() {
       <h3 className="featured-title">Pick A Course To Get Started</h3>
 
       <div className="featured-grid">
-        {featuredCourses.map((course, index) => (
-      <div className="course-card" key={index}>
-  <div style={{ position: 'relative' }}>
-    <img src={course.thumbnail} alt={course.title} className="course-image" />
-    <div className="course-price-tag">${course.price}</div>
-  </div>
+        {featuredCourses.map((course, index) => {
+          const courseId = generateId(course.title, course.author);
 
-  <div className="course-content">
-    <div className="course-top">
-      <span className="course-title">{course.title}</span>
-      <span className="course-reviews">{course.reviews} reviews</span>
-    </div>
+          return (
+            <div className="course-image-frame" key={index} id={courseId}>
+              <div style={{ position: 'relative' }}>
+                <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="course-image"
+                />
+              </div>
 
-   <a href="#" className="course-description">{course.description}</a>
+              <div className="course-content">
+                <div className="course-top">
+                  <span className="course-title">{course.title}</span>
+                  <span className="course-reviews">
+                    {course.reviews} reviews
+                  </span>
+                </div>
 
-    <div className="course-meta">
-      <span>{course.lessons}x Lesson</span>
-      <span>{course.format}</span>
-    </div>
+                {/* Description now links to the same course using ID */}
+              <a href={`/courses/${courseId}`} className="course-description">
+                {course.description}
+              </a>
 
-    <div className="course-footer">
-      <div className="course-author">
-        <img src={course.authorImg} alt={course.author} className="author-img" />
-        <span className="author-name">{course.author}</span>
-      </div>
+                <div className="course-meta">
+                  <span>{course.lessons}x Lesson</span>
+                  <span>{course.format}</span>
+                </div>
+
+                <div className="course-footer">
+                  <div className="course-author">
+                    <img
+                      src={course.authorImg}
+                      alt={course.author}
+                      className="author-img"
+                    />
+                    <span className="author-name">{course.author}</span>
+                  </div>
+
       <a href="#" className="read-more">Read More</a>
-    </div>
-  </div>
-</div>
-
-        ))}
+   </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

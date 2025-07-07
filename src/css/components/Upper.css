@@ -1,0 +1,153 @@
+.course-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 120px 80px;
+  background: linear-gradient(to right, #ffffff, #f9f9f9);
+  gap: 50px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.course-header-left {
+  flex: 1;
+  max-width: 50%;
+}
+
+.course-header-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  color: white;
+}
+
+.badge-green {
+  background-color: #28a745;
+}
+
+.badge-red {
+  background-color: #bd2130;
+}
+
+.course-header-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.course-header-subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  max-width: 90%;
+  line-height: 1.5;
+}
+
+.course-header-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap; /* Optional: wrap on small screens */
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 30px;
+  color: #8d0a0a;
+
+}
+
+.review-count {
+  margin-left: 6px;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+
+.course-header-right {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-image-card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 600px;
+}
+
+.course-img {
+  border-radius: 10px;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+/* ✅ Responsive mobile layout */
+@media (max-width: 768px) {
+  .course-header-wrapper {
+    flex-direction: column-reverse;
+    padding: 60px 20px;
+    align-items: center;
+    text-align: center
+  }
+
+  .course-header-left,
+  .course-header-right {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .course-header-badges {
+    justify-content: left;
+  }
+
+  .course-header-author {
+    flex-direction: row;
+    justify-content: left;
+   
+  }
+
+  .author-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .course-img {
+    height: 320px;
+    margin: 0 auto;
+  }
+}
