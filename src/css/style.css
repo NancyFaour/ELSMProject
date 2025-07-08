@@ -5,7 +5,11 @@
 @import './components/Footer.css';
 @import './components/PopularCategory.css';
 @import './components/Upper.css';
-@import './components/CourseOverview.tsx'
+@import './components/CourseOverview.css';
+@import './components/CourseFormTable.css';
+@import './components/CourseSection.css';
+@import './components/CourseCategory.css';
+@import './components/CourseConent.css'
 
 
 

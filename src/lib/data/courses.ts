@@ -39,13 +39,102 @@ By the end of the course, you’ll be fully equipped not only to apply these pri
     "Work with color, gradients, and grids"
   ],
 
-  courseContent: [
-    "Introduction to Adobe XD and UI Principles",
-    "Color Theory and Gradient Usage",
-    "Typography and Grid Systems",
-    "Designing for Multiple Screens",
-    "Real-World Project: Marketing Flyer"
-  ]
+  courseSummary: `In this course take you from the fundamentals and concepts of data modeling all the way through anumber of best practices and techniques that you’ll need to build data models in your organization. You’ll find many examples that clearly the key covered the course
+
+By the end of the course, you’ll be all set to not only put these principles to works but also to make the key data modeling and design decisions required by the info data modeling that transcend the nuts-and-bolts that clearly the key covered the course and design patterns.`,
+courseDetails: [
+      { label: "Course Level", value: "Beginner" },
+      { label: "Course Duration", value: "10 weeks" },
+      { label: "Online Class", value: "08" },
+      { label: "Lessons", value: "18x" },
+      { label: "Quizzes", value: "0" },
+      { label: "Pass Percentage", value: "80%" },
+      { label: "Certificate", value: "Yes" },
+      { label: "Language", value: "English" }
+    ],
+
+courseCategories: [
+      { label: "Personal Development", value: "30" },
+      { label: "Photography", value: "20" },
+      { label: "Teaching and Academics", value: "93" },
+      { label: "Art and Design", value: "32" },
+      { label: "Business", value: "26" },
+      { label: "Data Science", value: "27" },
+      { label: "Development", value: "28" },
+      { label: "Finance", value: "36" },
+      { label: "Health and Fitness", value: "39" },
+      { label: "Lifestyle", value: "37" },
+      { label: "Marketing", value: "18" },
+      { label: "Music", value: "20" },
+    ],
+courseContent: [
+  {
+    sectionTitle: "1. Introduction",
+    totalLessons: 5,
+    totalDuration: "17:37",
+    lessons: [
+      {
+        title: "1.1 Welcome to the course",
+        duration: "02:30",
+        videoUrl: "/videos/Trial.mp4" // Update with actual video URL
+      },
+      {
+        title: "1.2 How to set up your Photoshop workspace",
+        duration: "08:33",
+        videoUrl: "#"
+      },
+      {
+        title: "1.3 Essential Photoshop Tools",
+        duration: "03:38",
+        videoUrl: "#"
+      },
+      {
+        title: "1.4 Finding inspiration",
+        duration: "02:30",
+        videoUrl: "#"
+      },
+      {
+        title: "1.5 Choosing Your Format",
+        duration: "03:48",
+        videoUrl:"#"
+      }
+    ]
+  },
+  {
+    sectionTitle: "2. How to Create Mixed Media Art in Adobe Photoshop",
+    totalLessons: 5,
+    totalDuration: "52:15",
+    lessons: [
+      {
+        title: "2.1 Using Adjustment Layers",
+        duration: "06:20",
+        videoUrl: "#"
+      },
+      {
+        title: "2.2 Building the composition",
+        duration: "07:33",
+        videoUrl: "#"
+      },
+      {
+        title: "2.3 Photoshop Lighting effects",
+        duration: "06:30",
+        videoUrl: "#"
+      },
+      {
+        title: "2.4 Digital Painting using Photoshop brushes",
+        duration: "08:34",
+        videoUrl: "#"
+      },
+      {
+        title: "2.5 Finalizing the details",
+        duration: "10:30",
+        videoUrl: "#"
+      }
+    ]
+  }
+]
+
+
 },
 //   {
 //     id: generateId('Photoshop', 'Lora Smith'),

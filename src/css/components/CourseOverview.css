@@ -1,0 +1,67 @@
+.course-overview-wrapper {
+  background-color: #fff7fb;
+  padding: 160px 80px 60px 80px; /* top padding to make room for image overlap */
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  padding: 10 30;
+}
+
+
+.course-overview-content {
+  max-width: 750px;
+  margin-left: 0; /* align to left */
+  margin-right: auto;
+  color: #333;
+}
+.course-summary-title,
+.course-overview-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #111;
+
+}
+.course-summary-description,
+.course-overview-description {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.what-you-will-learn-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.what-you-will-learn-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.what-you-will-learn-item {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 14px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.what-you-will-learn-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+   color:#8d0a0a;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .course-image-wrapper {
+    margin-bottom: 0;
+  }
+
+  .course-overview-wrapper {
+    padding-top: 60px;
+  }
+}

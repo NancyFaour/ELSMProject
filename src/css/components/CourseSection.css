@@ -1,0 +1,34 @@
+.course-section-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #fff7fb;
+  padding: 1.5rem 5rem;
+  border-radius: 16px;
+}
+
+/* Desktop layout: overview left, table+category right */
+@media (min-width: 1024px) {
+  .course-section-grid {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .course-overview-wrapper {
+    flex: 2;
+    margin-right: 2rem;
+  }
+
+  .course-info-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+/* Make sure both CourseFormTable and CourseCategory fill width */
+.course-form-table-wrapper,
+.course-category-wrapper {
+  width: 100%;
+}

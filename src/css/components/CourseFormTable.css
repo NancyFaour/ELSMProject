@@ -1,0 +1,87 @@
+.course-form-table-wrapper {
+  margin-top: 5rem; 
+  background-color: white;
+  padding: 0; /* remove internal padding to eliminate white around title */
+  border-radius: 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+  font-family: 'Inter', 'Segoe UI', sans-serif; /* Better font */
+}
+
+.course-form-table-wrapper:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.00);
+}
+
+/* Red header bar on top — full width with no spacing around */
+.course-form-table-title {
+  background-color: darkred;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 1rem 1.5rem;
+  margin: 0;
+  border-bottom: none;
+}
+
+/* Table layout */
+.course-form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Rows */
+.course-form-table-row {
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s ease;
+}
+
+.course-form-table-row:hover {
+  background-color: #fdf2f8;
+}
+
+/* Shared cell styles */
+.course-form-table-label,
+.course-form-table-value {
+  padding: 1rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.course-form-table-label {
+  font-weight: 600;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.course-form-table-value {
+  color: #1a202c;
+  font-weight: 500;
+}
+
+/* Icon */
+.course-form-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: grayscale(40%);
+  opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .course-section-grid {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  .course-overview-wrapper,
+  .course-form-table-wrapper {
+    flex: unset;
+    margin: 0;
+  }
+}

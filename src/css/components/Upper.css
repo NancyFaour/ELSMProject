@@ -8,6 +8,8 @@
   margin-top: 30px;
   flex-wrap: wrap;
   flex-direction: row;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .course-header-left {
@@ -92,29 +94,31 @@
 }
 
 
-.course-header-right {
-  flex: 1;
-  max-width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Wrapper that will allow overlap */
+.course-image-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-bottom: -80px; /* Adjust depending on image height */
 }
 
+/* Card stays fixed inside the layout */
 .course-image-card {
   background: white;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 16px;
+  border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 600px;
+  overflow: hidden;
+  max-width: 100%;
 }
 
+/* Image styling */
 .course-img {
-  border-radius: 10px;
   width: 100%;
-  height: 400px;
+  height: 350;
   object-fit: cover;
+  border-radius: 5px;
 }
+
 
 /* ✅ Responsive mobile layout */
 @media (max-width: 768px) {

@@ -53,17 +53,18 @@ export default function Upper({
         </div>
       </div>
 
-      <div className="course-header-right">
-        <div className="course-image-card">
-          <Image
-            src={courseImg}
-            alt={title}
-            width={600}
-            height={400}
-            className="course-img"
-          />
-        </div>
-      </div>
+    <div className="course-image-wrapper">
+  <div className="course-image-card">
+    <Image
+      src={courseImg}
+      alt={title}
+      width={800}
+      height={700}
+      className="course-img"
+    />
+  </div>
+</div>
+
     </section>
   );
 }

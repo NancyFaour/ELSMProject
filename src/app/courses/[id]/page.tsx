@@ -3,8 +3,7 @@ import { featuredCourses } from '@/lib/data/courses';
 import { notFound } from 'next/navigation';
 import Header from '@/components/HomePage/Header';
 import Upper from '@/components/CourseDetails/Upper';
-import CourseOverview from '@/components/CourseDetails/CourseOverview';
-
+import CourseSection from '@/components/CourseDetails/CourseSection';
 type Props = {
   params: {
     id: string;
@@ -28,15 +27,7 @@ export default function CoursePage({ params }: Props) {
         authorImg={course.authorImg}
         courseImg={course.courseImg}
       />
-      <CourseOverview
-        courseOverview={course.courseOverview}
-        whatYouWillLearn={course.whatYouWillLearn}
-    
-      />
-      {/* Add more course sections here later */}
-      {/* For example, you can add CourseCurriculum, CourseReviews, etc. */}
-
-      {/* Add more course sections here later */}
+      <CourseSection />
     </>
   );
 }

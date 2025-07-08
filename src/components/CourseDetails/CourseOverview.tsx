@@ -4,6 +4,7 @@ import Image from 'next/image';
 type CourseOverviewProps = {
  courseOverview: string;   
     whatYouWillLearn: string[];
+    courseSummary: string;
      
 
 };
@@ -11,6 +12,7 @@ type CourseOverviewProps = {
 export default function CourseOverview({
   courseOverview,
   whatYouWillLearn,
+  courseSummary
 }: CourseOverviewProps) {
   return (
     <section className="course-overview-wrapper">
@@ -25,6 +27,8 @@ export default function CourseOverview({
               {item}
             </li>
           ))}
+          <h4 className="course-summary-title">Course Summary</h4>
+          <p className="course-summary-description">{courseSummary}</p>
         </ul>
       </div>
     </section>
