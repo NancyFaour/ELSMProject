@@ -1,0 +1,72 @@
+.register-page {
+  max-width: 450px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fff0f5;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.register-header p {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+.register-header h1 {
+  font-size: 2rem;
+  color: darkred;
+  margin-bottom: 2rem;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: darkred;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #a00;
+}
+
+.register-footer {
+  margin-top: 1.5rem;
+}
+
+.register-footer p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.social-register {
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: 2px solid darkred;
+  color: darkred;
+  background-color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.social-register:hover {
+  background-color: #ffe5eb;
+}

@@ -1,0 +1,94 @@
+.login-page {
+  max-width: 450px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fff0f5;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.login-header p {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+.login-header h1 {
+  font-size: 2rem;
+  color: darkred;
+  margin-bottom: 2rem;
+}
+
+.login-form input[type='text'],
+.login-form input[type='password'] {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+}
+
+.forgot-password {
+  color: #a00;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: darkred;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #a00;
+}
+
+.login-footer {
+  margin-top: 1.5rem;
+}
+
+.login-footer p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.social-login {
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: 2px solid darkred;
+  color: darkred;
+  background-color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.social-login:hover {
+  background-color: #ffe5eb;
+}

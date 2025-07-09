@@ -76,27 +76,27 @@ courseContent: [
       {
         title: "1.1 Welcome to the course",
         duration: "02:30",
-        videoUrl: "/videos/Trial.mp4" // Update with actual video URL
+        videoUrl: "/videos/Trial.mp4" 
       },
       {
         title: "1.2 How to set up your Photoshop workspace",
         duration: "08:33",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4" 
       },
       {
         title: "1.3 Essential Photoshop Tools",
         duration: "03:38",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "1.4 Finding inspiration",
         duration: "02:30",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "1.5 Choosing Your Format",
         duration: "03:48",
-        videoUrl:"#"
+        videoUrl: "/videos/Trial.mp4"
       }
     ]
   },
@@ -108,27 +108,27 @@ courseContent: [
       {
         title: "2.1 Using Adjustment Layers",
         duration: "06:20",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "2.2 Building the composition",
         duration: "07:33",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "2.3 Photoshop Lighting effects",
         duration: "06:30",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "2.4 Digital Painting using Photoshop brushes",
         duration: "08:34",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       },
       {
         title: "2.5 Finalizing the details",
         duration: "10:30",
-        videoUrl: "#"
+        videoUrl: "/videos/Trial.mp4"
       }
     ]
   }

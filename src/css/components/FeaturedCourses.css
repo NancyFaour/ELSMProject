@@ -30,7 +30,8 @@
 
 @media (min-width: 640px) {
   .featured-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    padding: 20px 60px;
   }
 }
 
@@ -55,12 +56,12 @@
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
-
+/* Image Frame with sharp edges */
 .course-image-frame {
   background-color: #ffffff;
-  padding: 8px;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb; /* light neutral frame */
+  padding: 10px; 
+  border-radius: 0; /* sharp corners */
+  border: 1px solid #e5e7eb;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   margin-bottom: 12px;
   transition: box-shadow 0.3s ease;
@@ -70,13 +71,15 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Course Image takes its original size with sharp edges */
 .course-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
+  height: auto; 
+  object-fit: contain; /* show full image */
+  border-radius: 0px; /* sharp corners */
   display: block;
 }
+
 
 
 /* Card Content */
@@ -97,7 +100,10 @@
 .course-title {
   font-weight: 600;
   font-size: 16px;
-  color: #111827;
+  color: #fff;
+  background-color: #af1515;
+  padding: 4px 8px;
+  border-radius: 8px;
 }
 
 .course-reviews {
@@ -115,7 +121,7 @@
 }
 
 .course-description:hover {
-  color: #dc2626;
+  color: #ab0808;
   text-decoration: underline;
 }
 

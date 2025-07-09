@@ -1,0 +1,149 @@
+.contact-wrapper {
+  padding: 60px 20px;
+  background-color: #fff7fb;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.contact-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: darkred;
+}
+
+.contact-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-top: -25px;
+}
+
+/* Map + Info Row */
+.contact-top {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.map-container {
+  flex: 1;
+  min-height: 300px;
+  min-width: 300px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Info Cards */
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-box {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  color: darkred;
+  flex-shrink: 0;
+}
+
+.contact-box p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.contact-box strong {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+
+/* Contact Form Section */
+.contact-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 700px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.9rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: darkred;
+}
+
+.contact-form button {
+  background-color: darkred;
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #a40f0f;
+}
+.contact-form-container {
+  text-align: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #1f2937;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}

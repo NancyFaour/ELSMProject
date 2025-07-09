@@ -136,3 +136,4 @@ export default function FeaturedCourses() {
     </section>
   );
 }
+export { featuredCourses}; // Export for use in other components

@@ -42,7 +42,6 @@ export default function Header() {
       <div className="lower-header">
         <div className="logo">LMS</div>
 
-        {/* Hamburger Toggle Button */}
         <button
           className="menu-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -55,12 +54,14 @@ export default function Header() {
           )}
         </button>
 
-        {/* Nav Links */}
         <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
-          <a href="#">HOME</a>
-          <a href="#">COURSES</a>
-          <a href="#">PAGES</a>
-          <a href="#">CONTACT</a>
+          <a href="/Home">HOME</a>
+          <a href="/Course">COURSES</a>
+          <a href="/Contact">CONTACT</a>
+          <div className="auth-buttons">
+            <a href="/login" className="login-btn">Login</a>
+            <a href="/register" className="register-btn">Register</a>
+          </div>
         </nav>
       </div>
     </header>

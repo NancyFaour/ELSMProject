@@ -1,4 +1,6 @@
 @import './layout/globals.css';
+@import './layout/register.css';
+@import './layout/login.css';
 @import './components/Header.css';
 @import './components/FirstBody.css';
 @import './components/FeaturedCourses.css';
@@ -9,7 +11,11 @@
 @import './components/CourseFormTable.css';
 @import './components/CourseSection.css';
 @import './components/CourseCategory.css';
-@import './components/CourseConent.css'
+@import './components/CourseConent.css';
+@import './components/Filter.css';
+@import './components/contact.css';
+
+
 
 
 
