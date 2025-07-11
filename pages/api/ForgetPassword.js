@@ -1,23 +1,21 @@
 import https from 'https';
-import fetch from 'node-fetch'; // Use node-fetch v2 for compatibility
+import fetch from 'node-fetch'; // node-fetch v2
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const httpsAgent = new https.Agent({
-    rejectUnauthorized: false,
-  });
+  const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
   try {
-    const backendUrl = 'https://localhost:7177/api/Notification/register';
+    const backendUrl = 'https://localhost:7177/api/Notification/forget-password'; 
 
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
-      agent: httpsAgent, // Works with node-fetch
+      agent: httpsAgent,
     });
 
     const data = await response.json();

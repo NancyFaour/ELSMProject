@@ -1,5 +1,5 @@
 import https from 'https';
-import fetch from 'node-fetch'; // Use node-fetch v2 for compatibility
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -7,20 +7,28 @@ export default async function handler(req, res) {
   }
 
   const httpsAgent = new https.Agent({
-    rejectUnauthorized: false,
+    rejectUnauthorized: false, // Accept self-signed certificates
   });
 
   try {
-    const backendUrl = 'https://localhost:7177/api/Notification/register';
+    const backendUrl = 'https://localhost:7177/api/Notification/reset-password';
 
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
-      agent: httpsAgent, // Works with node-fetch
+      agent: httpsAgent,
     });
 
-    const data = await response.json();
+    const contentType = response.headers.get('content-type');
+
+    let data;
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      return res.status(response.status).json({ message: 'Unexpected response from backend', detail: text });
+    }
 
     if (!response.ok) {
       return res.status(response.status).json(data);

@@ -21,7 +21,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match');
+      alert('Passwords do not match.');
       return;
     }
 
@@ -34,15 +34,25 @@ export default function RegisterPage() {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (!response.ok) {
-        alert(data.message || 'Registration failed');
-        return;
+      // Backend is expected to return { code: number, description: string }
+      const { code, description } = result;
+
+      switch (code) {
+        case 0:
+          alert(description); // Registration successful
+          console.log('Success:', result);
+          break;
+        case 2:
+          alert('This email is already registered.');
+          break;
+        case 3:
+          alert('Validation error: ' + description);
+          break;
+        default:
+          alert('Error: ' + description);
       }
-
-      alert('Registered successfully!');
-      console.log('Success:', data);
     } catch (error) {
       console.error('Error submitting registration:', error);
       alert('Something went wrong. Please try again.');
@@ -92,7 +102,6 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
           />
-
           <button type="submit" className="submit-btn">Get Started Now</button>
         </form>
 

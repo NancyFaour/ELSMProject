@@ -1,5 +1,5 @@
 import https from 'https';
-import fetch from 'node-fetch'; // Use node-fetch v2 for compatibility
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -7,28 +7,29 @@ export default async function handler(req, res) {
   }
 
   const httpsAgent = new https.Agent({
-    rejectUnauthorized: false,
+    rejectUnauthorized: false, 
   });
 
   try {
-    const backendUrl = 'https://localhost:7177/api/Notification/register';
+    const backendUrl = 'https://localhost:7177/api/Notification/login';
 
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
-      agent: httpsAgent, // Works with node-fetch
+      agent: httpsAgent,
     });
 
     const data = await response.json();
 
     if (!response.ok) {
+      console.error('Backend login error:', data);
       return res.status(response.status).json(data);
     }
 
     return res.status(200).json(data);
   } catch (err) {
-    console.error('API error:', err);
+    console.error('Login API error:', err);
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
