@@ -4,6 +4,7 @@ import CourseOverview from './CourseOverview';
 import CourseFormTable from './CourseFormTable';
 import CourseCategory from './CourseCategory';
 import CourseContent from './CourseContent';
+import ReviewBox from './ReviewBox';
 import { featuredCourses } from '@/lib/data/courses';
 
 const course = featuredCourses[0];
@@ -19,13 +20,16 @@ export default function CourseSection() {
           courseSummary={course.courseSummary}
         />
            <CourseContent courseContent={course.courseContent} />
+           <ReviewBox
+          
+              />
       </div>
 
       {/* RIGHT: Form Table + Category vertically stacked */}
       <div className="course-info-column">
         <CourseFormTable courseDetails={course.courseDetails} />
         <CourseCategory courseCategories={course.courseCategories} />
-     
+              
       </div>
     </section>
   );

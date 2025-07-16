@@ -16,6 +16,14 @@
 @import './components/contact.css';
 @import './components/ForgetPassword.css';
 @import './components/ResetPassword.css';
+@import './components/ReviewBox.css';
+@import './components/VideoContent.css';
+@import './admin/AdminLayout.css';
+@import './admin/Sidebar.css';
+@import './admin/Topbar.css';
+@import './admin/CategoryTable.css';
+@import './admin/CourseTable.css';
+@import './admin/ReviewTable.css';
 
 
 

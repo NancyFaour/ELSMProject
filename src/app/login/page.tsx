@@ -1,11 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Header from '@/components/HomePage/Header';  
+import Swal from 'sweetalert2';
+import Header from '@/components/HomePage/Header';
 import Footer from '@/components/HomePage/Footer';
-
+import useClearTokens from  '../../../pages/api/MiddleWares/useClearTokens';
 export default function LoginPage() {
+  const router = useRouter();
+  useClearTokens();
+
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -31,26 +36,47 @@ export default function LoginPage() {
       });
 
       const result = await response.json();
+      const { accessToken, refreshToken, description } = result;
 
-      const { code, description } = result;
+      if (response.ok && accessToken) {
+        // Save tokens
+        if (form.remember) {
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
+        } else {
+          sessionStorage.setItem('accessToken', accessToken);
+          sessionStorage.setItem('refreshToken', refreshToken);
+        }
 
-      switch (code) {
-        case 0:
-          alert(description); // Login successful
-          console.log('Login successful:', result);
-          break;
-        case 1:
-          alert('Invalid email or password.');
-          break;
-        case 2:
-          alert('Account is locked. Please contact support.');
-          break;
-        default:
-          alert(  description);
+        // Show success modal
+        await Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          text: description || 'Welcome back!',
+          confirmButtonText: 'Continue',
+          position: 'center',
+        });
+        router.push('/admin');
+        // router.push('/CourseView');
+      } else {
+        // Show failure modal
+        await Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: description || 'Invalid email or password.',
+          confirmButtonText: 'Try Again',
+          footer: '<a href="/ForgetPassword">Forgot your password?</a>',
+        });
       }
     } catch (error) {
       console.error('Error during login:', error);
-      alert('Something went wrong. Please try again.');
+
+      await Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong. Please try again later.',
+        confirmButtonText: 'Close',
+      });
     }
   };
 

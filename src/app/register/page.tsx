@@ -2,10 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 import Header from '@/components/HomePage/Header';
 import Footer from '@/components/HomePage/Footer';
-
+import useClearTokens from  '../../../pages/api/MiddleWares/useClearTokens'
 export default function RegisterPage() {
+  const router = useRouter();
+  useClearTokens();
+
   const [form, setForm] = useState({
     username: '',
     email: '',
@@ -21,7 +26,12 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match.');
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Password Mismatch',
+        text: 'Passwords do not match.',
+        confirmButtonText: 'Try Again',
+      });
       return;
     }
 
@@ -35,27 +45,54 @@ export default function RegisterPage() {
       });
 
       const result = await response.json();
-
-      // Backend is expected to return { code: number, description: string }
       const { code, description } = result;
 
       switch (code) {
         case 0:
-          alert(description); // Registration successful
-          console.log('Success:', result);
+          await Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful',
+            text: description || 'Your account has been created.',
+            confirmButtonText: 'Go to Login',
+          });
+          router.push('/login');
           break;
+
         case 2:
-          alert('This email is already registered.');
+          await Swal.fire({
+            icon: 'info',
+            title: 'Email Already Registered',
+            text: 'This email is already in use. Please log in or use another email.',
+            confirmButtonText: 'Go to Login',
+          });
+          router.push('/login');
           break;
+
         case 3:
-          alert('Validation error: ' + description);
+          await Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            text: description || 'Please check your inputs and try again.',
+            confirmButtonText: 'Fix Inputs',
+          });
           break;
+
         default:
-          alert('Error: ' + description);
+          await Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: description || 'An unexpected error occurred.',
+            confirmButtonText: 'Close',
+          });
       }
     } catch (error) {
       console.error('Error submitting registration:', error);
-      alert('Something went wrong. Please try again.');
+      await Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong. Please try again later.',
+        confirmButtonText: 'Close',
+      });
     }
   };
 

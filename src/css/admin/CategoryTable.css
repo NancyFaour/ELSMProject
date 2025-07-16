@@ -1,0 +1,73 @@
+.admin-categories {
+  padding: 24px;
+}
+
+.admin-categories .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.add-button {
+  padding: 8px 16px;
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 16px;
+}
+
+.category-table th,
+.category-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.action-icons span:hover {
+  opacity: 0.7;
+}
+
+.edit-btn {
+  background-color: #facc15;
+  color: black;
+  padding: 6px 12px;
+  border: none;
+  margin-right: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #dc2626;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.action-icons {
+  display: flex;
+  gap: 12px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.action-icons span:hover {
+  opacity: 0.7;
+}

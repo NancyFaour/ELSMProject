@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import LogoutButton from './LogoutButton';
 
 import {
   PhoneIcon,
@@ -55,12 +56,11 @@ export default function Header() {
         </button>
 
         <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
-          <a href="/">HOME</a>
+          <a href="/Home">HOME</a>
           <a href="/Course">COURSES</a>
           <a href="/Contact">CONTACT</a>
           <div className="auth-buttons">
-            <a href="/login" className="login-btn">Login</a>
-            <a href="/register" className="register-btn">Register</a>
+            <LogoutButton />
           </div>
         </nav>
       </div>

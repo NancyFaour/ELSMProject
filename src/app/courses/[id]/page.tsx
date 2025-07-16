@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/HomePage/Header';
 import Upper from '@/components/CourseDetails/Upper';
 import CourseSection from '@/components/CourseDetails/CourseSection';
+import ReviewBox from '@/components/CourseDetails/ReviewBox';
 import Footer from '@/components/HomePage/Footer';
 type Props = {
   params: {
@@ -29,6 +30,7 @@ export default function CoursePage({ params }: Props) {
         courseImg={course.courseImg}
       />
       <CourseSection />
+    
       <Footer />
     </>
   );
