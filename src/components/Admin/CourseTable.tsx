@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 type Course = {
   id: number;
   title: string;
@@ -21,8 +23,10 @@ type Props = {
 };
 
 export default function CourseTable({ data }: Props) {
+  const router = useRouter(); // ✅ Must be inside the component function
+
   const handleEdit = (id: number) => {
-    console.log('Edit course', id);
+    router.push(`/admin/courses/form?mode=edit&id=${id}`);
   };
 
   const handleDelete = (id: number) => {

@@ -56,8 +56,8 @@ export default function LoginPage() {
           confirmButtonText: 'Continue',
           position: 'center',
         });
-        router.push('/admin');
-        // router.push('/CourseView');
+        // router.push('/admin');
+         router.push('/CourseView');
       } else {
         // Show failure modal
         await Swal.fire({

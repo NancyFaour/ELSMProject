@@ -24,7 +24,8 @@
 @import './admin/CategoryTable.css';
 @import './admin/CourseTable.css';
 @import './admin/ReviewTable.css';
-
+@import './admin/UserTable.css';
+@import './admin/RoleTable.css';
 
 
 

@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { label: 'Users', href: '/admin/users' },
+
   { label: 'Categories', href: '/admin/categories' },
   { label: 'Courses', href: '/admin/courses' },
   { label: 'Reviews', href: '/admin/reviews' },
+    { label: 'Web Users', href: '/admin/users' },
+  { label: 'Web Roles',href: '/admin/roles' },
 ];
 
 export default function Sidebar() {
