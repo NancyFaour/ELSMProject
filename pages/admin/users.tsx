@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import UserTable from '@/components/Admin/UserTable';
 import UserFormModal from '@/components/Admin/UserFormModal';
 
-type User = {
+export type User = {
   id: number;
   username: string;
   email: string;
@@ -20,12 +20,18 @@ export default function AdminUsersPage() {
   const [editUser, setEditUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Mock data for now
-    const mockUsers: User[] = [
-      { id: 1, username: 'john_doe', email: 'john@example.com', role: 'admin', createdAt: '2024-01-01' },
-      { id: 2, username: 'jane_smith', email: 'jane@example.com', role: 'user', createdAt: '2024-05-22' }
-    ];
-    setUsers(mockUsers);
+    async function fetchUsers() {
+      try {
+        const res = await fetch('/api/users');
+        if (!res.ok) throw new Error('Failed to fetch users');
+        const data = await res.json();
+        setUsers(data);
+      } catch (err) {
+        console.error('Failed to load users:', err);
+        alert('Error loading users. Please try again later.');
+      }
+    }
+    fetchUsers();
   }, []);
 
   const handleAdd = () => {
@@ -43,20 +49,48 @@ export default function AdminUsersPage() {
     setEditUser(null);
   };
 
-  const handleSave = (user: User) => {
-    if (editUser) {
-      // Edit existing user
-      setUsers((prev) => prev.map((u) => (u.id === user.id ? user : u)));
-    } else {
-      // Add new user (mocking ID)
-      const newUser = { ...user, id: Date.now(), createdAt: new Date().toISOString() };
-      setUsers((prev) => [...prev, newUser]);
+  const handleSave = async (user: User) => {
+    try {
+      const isEditing = !!editUser;
+      const url = isEditing ? `/api/users?id=${editUser?.id}` : '/api/users';
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Save failed: ${text}`);
+      }
+
+      const savedUser = await res.json();
+
+      setUsers((prev) =>
+        isEditing
+          ? prev.map((u) => (u.id === savedUser.id ? savedUser : u))
+          : [...prev, savedUser]
+      );
+
+      handleCloseModal();
+    } catch (err: any) {
+      console.error('Save error:', err);
+      alert(`Error: ${err.message}`);
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (id: number) => {
-    setUsers((prev) => prev.filter((u) => u.id !== id));
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    try {
+      const res = await fetch(`/api/users?id=${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error(await res.text());
+      setUsers((prev) => prev.filter((u) => u.id !== id));
+    } catch (err: any) {
+      console.error('Delete error:', err);
+      alert(`Error deleting user: ${err.message}`);
+    }
   };
 
   return (

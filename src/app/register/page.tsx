@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Header from '@/components/HomePage/Header';
 import Footer from '@/components/HomePage/Footer';
 import useClearTokens from  '../../../pages/api/MiddleWares/useClearTokens'
 export default function RegisterPage() {
   const router = useRouter();
-  useClearTokens();
+
+  // Check for token on mount
+  useEffect(() => {
+    const accessToken =
+      localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+
+    if (accessToken) {
+      router.push('/CourseView'); // Redirect if already logged in
+    }
+  }, [router]);
 
   const [form, setForm] = useState({
     username: '',

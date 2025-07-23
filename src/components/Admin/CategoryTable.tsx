@@ -7,9 +7,10 @@ type Category = {
 type Props = {
   data: Category[];
   onEdit: (category: Category) => void;
+  onDelete: (id?: number) => void;
 };
 
-export default function CategoryTable({ data, onEdit}: Props) {
+export default function CategoryTable({ data, onEdit, onDelete }: Props) {
   return (
     <table className="category-table">
       <thead>
@@ -30,8 +31,8 @@ export default function CategoryTable({ data, onEdit}: Props) {
               <td>{cat.name}</td>
               <td>{cat.courseCount ?? 0}</td>
               <td>
-                <button onClick={() => onEdit(cat)}>✏️</button>
-                <span title="Delete">🗑️</span>
+                <button onClick={() => onEdit(cat)} title="Edit">✏️</button>
+                <button onClick={() => onDelete(cat.id)} title="Delete">🗑️</button>
               </td>
             </tr>
           ))

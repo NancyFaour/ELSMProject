@@ -2,33 +2,58 @@
 
 import { useEffect, useState } from 'react';
 
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+};
+
 type Props = {
-  user: {
-    id?: number;
-    username: string;
-    email: string;
-    role: string;
-  } | null;
+  user: User | null;
   onClose: () => void;
-  onSave: (user: any) => void;
+  onSave: (user: User) => void;
 };
 
 export default function UserFormModal({ user, onClose, onSave }: Props) {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    role: '',
+  const [formData, setFormData] = useState<User>({
+    id: user?.id ?? 0,
+    username: user?.username ?? '',
+    email: user?.email ?? '',
+    role: user?.role ?? '',
+    createdAt: user?.createdAt ?? new Date().toISOString(),
   });
+
+  const [roles, setRoles] = useState<any[]>([]); 
 
   useEffect(() => {
     if (user) {
+      setFormData(user);
+    } else {
       setFormData({
-        username: user.username,
-        email: user.email,
-        role: user.role,
+        id: 0,
+        username: '',
+        email: '',
+        role: '',
+        createdAt: new Date().toISOString(),
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const res = await fetch('/api/WebRole');
+        const data = await res.json();
+        setRoles(data);
+      } catch (err) {
+        console.error('Failed to load roles:', err);
+      }
+    };
+
+    fetchRoles();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -37,27 +62,48 @@ export default function UserFormModal({ user, onClose, onSave }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = user?.id ? { ...formData, id: user.id } : formData;
-    onSave(payload);
+    onSave(formData);
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-box">
-        <h3>{user ? 'Edit User' : 'Add User'}</h3>
+      <div className="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <h3 id="modal-title">{user ? 'Edit User' : 'Add User'}</h3>
         <form onSubmit={handleSubmit}>
-          <label>Username:</label>
-          <input name="username" value={formData.username} onChange={handleChange} required />
+          <label htmlFor="username">Username:</label>
+          <input
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            autoFocus
+          />
 
-          <label>Email:</label>
-          <input name="email" value={formData.email} type="email" onChange={handleChange} required />
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-          <label>Role:</label>
-          <select name="role" value={formData.role} onChange={handleChange} required>
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          >
             <option value="">Select Role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-            <option value="superadmin">Super Admin</option>
+            {roles.map((role) => (
+              <option key={role.id} value={role.roleName}>
+                {role.roleName}
+              </option>
+            ))}
           </select>
 
           <div className="form-actions">

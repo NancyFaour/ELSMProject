@@ -1,5 +1,5 @@
 'use client';
-
+import fetch from 'node-fetch';
 import "@/css/style.css";
 import AdminLayout from '@/components/Admin/AdminLayout';
 import CourseTable from '@/components/Admin/CourseTable';
@@ -26,27 +26,25 @@ export default function AdminCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    // Replace later with backend fetch
-    const mockData: Course[] = [
-      {
-        id: 1,
-        title: 'React Basics',
-        overview: 'Learn the basics of React.',
-        price: 199.99,
-        level: 'Beginner',
-        durationWeeks: 4,
-        onlineClasses: 8,
-        lessons: 12,
-        quizzes: 2,
-        passPercentage: 70,
-        certificate: true,
-        language: 'English',
-        categoryId: 1,
-      },
-    ];
-    setCourses(mockData);
-  }, []);
+useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('/api/courses');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch courses: ${response.status}`);
+      }
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  fetchCourses();
+}, []);
+
+
+
 
   const handleAddCourse = () => {
     router.push('/admin/courses/form?mode=add');

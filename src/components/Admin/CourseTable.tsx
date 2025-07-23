@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 type Course = {
-  id: number;
+  id?: number;
   title: string;
   overview: string;
   price: number;
@@ -23,21 +23,32 @@ type Props = {
 };
 
 export default function CourseTable({ data }: Props) {
-  const router = useRouter(); // ✅ Must be inside the component function
+  const router = useRouter();
 
   const handleEdit = (id: number) => {
     router.push(`/admin/courses/form?mode=edit&id=${id}`);
   };
 
-  const handleDelete = (id: number) => {
-    console.log('Delete course', id);
-  };
+const handleDelete = async (id: number) => {
+  const confirmDelete = confirm('Are you sure you want to delete this course?');
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(`/api/courses/${id}`, { method: 'DELETE' });
+    if (!response.ok) throw new Error('Failed to delete course');
+
+    // Optionally refresh page or lift state up
+    window.location.reload();
+  } catch (error) {
+    console.error('Error deleting course:', error);
+  }
+};
+
 
   return (
     <table className="course-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Title</th>
           <th>Level</th>
           <th>Price</th>
@@ -50,21 +61,20 @@ export default function CourseTable({ data }: Props) {
       <tbody>
         {data.length === 0 ? (
           <tr>
-            <td colSpan={8}>No courses found.</td>
+            <td colSpan={7}>No courses found.</td>
           </tr>
         ) : (
           data.map((course) => (
             <tr key={course.id}>
-              <td>{course.id}</td>
               <td>{course.title}</td>
               <td>{course.level}</td>
               <td>${course.price.toFixed(2)}</td>
-              <td>{course.durationWeeks} w</td>
+              <td>{course.durationWeeks} weeks</td>
               <td>{course.certificate ? 'Yes' : 'No'}</td>
               <td>{course.language}</td>
               <td className="action-icons">
-                <span onClick={() => handleEdit(course.id)} title="Modify">✏️</span>
-                <span onClick={() => handleDelete(course.id)} title="Delete">🗑️</span>
+                <span onClick={() => handleEdit(course.id!)} title="Modify">✏️</span>
+                <span onClick={() => handleDelete(course.id!)} title="Delete">🗑️</span>
               </td>
             </tr>
           ))

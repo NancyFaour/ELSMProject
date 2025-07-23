@@ -1,21 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 import Header from '@/components/HomePage/Header';
 import Footer from '@/components/HomePage/Footer';
-import useClearTokens from  '../../../pages/api/MiddleWares/useClearTokens';
+
 export default function LoginPage() {
   const router = useRouter();
-  useClearTokens();
 
   const [form, setForm] = useState({
     email: '',
     password: '',
     remember: false,
   });
+
+  // Check for token on mount
+  useEffect(() => {
+    const accessToken =
+      localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+
+    if (accessToken) {
+      router.push('/CourseView'); // Redirect if already logged in
+    }
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -56,10 +65,9 @@ export default function LoginPage() {
           confirmButtonText: 'Continue',
           position: 'center',
         });
-        // router.push('/admin');
-         router.push('/CourseView');
+
+        router.push('/CourseView');
       } else {
-        // Show failure modal
         await Swal.fire({
           icon: 'error',
           title: 'Login Failed',

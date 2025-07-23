@@ -1,5 +1,5 @@
 'use client';
-
+import fetch from 'node-fetch';
 import "@/css/style.css";
 import AdminLayout from '@/components/Admin/AdminLayout';
 import CategoryTable from '@/components/Admin/CategoryTable';
@@ -12,20 +12,31 @@ type Category = {
   courseCount?: number;
 };
 
-
 export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editCategory, setEditCategory] = useState<Category | null>(null);
 
   useEffect(() => {
-    const mockData: Category[] = [
-      { id: 1, name: 'Programming', courseCount: 10 },
-      { id: 2, name: 'Design', courseCount: 7 },
-      { id: 3, name: 'Marketing', courseCount: 5 },
-    ];
-    setCategories(mockData);
+    fetchCategories();
   }, []);
+
+ const fetchCategories = async () => {
+  try {
+    const response = await fetch('/api/categories');
+    const data = await response.json();
+
+    if (Array.isArray(data)) {
+      setCategories(data);
+    } else {
+      console.error('Invalid data format:', data);
+      setCategories([]);
+    }
+  } catch (err) {
+    console.error('Failed to fetch categories:', err);
+    setCategories([]);
+  }
+};
 
   const handleAddClick = () => {
     setEditCategory(null);
@@ -37,26 +48,42 @@ export default function AdminCategoriesPage() {
     setIsModalOpen(true);
   };
 
+  const handleDelete = async (id?: number) => {
+    if (!id) return;
+    try {
+      await fetch(`/api/categories?id=${id}`, { method: 'DELETE' });
+      fetchCategories();
+    } catch (err) {
+      console.error('Failed to delete category:', err);
+    }
+  };
+
   const handleCloseModal = () => {
     setEditCategory(null);
     setIsModalOpen(false);
   };
 
- const handleSave = (category: Category) => {
-  if (editCategory) {
-    setCategories(prev =>
-      prev.map(c => (c.id === category.id ? { ...c, ...category } : c))
-    );
-  } else {
-    const newCategory = {
-      ...category,
-      id: Date.now(),
-      courseCount: 0, // mock value
-    };
-    setCategories(prev => [...prev, newCategory]);
-  }
-  handleCloseModal();
-};
+  const handleSave = async (category: Category) => {
+    try {
+      const method = editCategory ? 'PUT' : 'POST';
+      const response = await fetch('/api/categories', {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: editCategory ? category.id : 0,
+          name: category.name,
+          courseCount: 0, // backend expects this
+        }),
+      });
+
+      if (!response.ok) throw new Error('Save failed');
+
+      fetchCategories();
+      handleCloseModal();
+    } catch (err) {
+      console.error('Failed to save category:', err);
+    }
+  };
 
   return (
     <AdminLayout>
@@ -65,7 +92,7 @@ export default function AdminCategoriesPage() {
           <h2>Manage Categories</h2>
           <button className="add-button" onClick={handleAddClick}>Add Category</button>
         </div>
-        <CategoryTable data={categories} onEdit={handleEdit} />
+        <CategoryTable data={categories} onEdit={handleEdit} onDelete={handleDelete} />
         {isModalOpen && (
           <CategoryFormModal
             category={editCategory}

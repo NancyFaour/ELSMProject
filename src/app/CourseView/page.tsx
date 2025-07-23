@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import AuthorizedHeader from '@/components/HomePage/AuthorizedHeader';
+import AuthorizedHeader from '@/components/HomePage/Header';
 import Footer from '@/components/HomePage/Footer';
 import CourseContent from '@/components/CourseView/VideoContent';
 
@@ -20,16 +20,16 @@ export default function CourseView() {
       router.replace('/login');
     } else {
       // Optional: validate token with backend
-      setIsAuthorized(true); // Assume valid if exists (for now)
+      setIsAuthorized(true); 
     }
   }, [router]);
 
   if (isAuthorized === null) {
-    return <p>Checking authentication...</p>; // Prevent flicker
+    return <p>Checking authentication...</p>; 
   }
 
   if (!isAuthorized) {
-    return null; // Redirecting...
+    return null; 
   }
 
   return (
@@ -61,21 +61,10 @@ export default function CourseView() {
                 },
               ],
             },
-            // Add more sections as needed
+           
           ]}
         />
-        {/* Example: protected API call */}
-        {/* 
-        useEffect(() => {
-          fetch('/api/protected', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then(res => res.json())
-          .then(data => setCourseData(data))
-        }, []);
-        */}
+      
       </div>
       <Footer />
     </>

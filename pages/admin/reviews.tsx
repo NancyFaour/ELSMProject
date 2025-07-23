@@ -18,31 +18,24 @@ type Review = {
 export default function AdminReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
 
-  useEffect(() => {
-    // Mock data for now
-    const mockReviews: Review[] = [
-      {
-        id: 1,
-        courseId: 101,
-        name: 'Alice Smith',
-        email: 'alice@example.com',
-        reviewComment: 'Great course!',
-        starsOfTheReview: 5,
-        reviewDate: '2025-07-10T10:00:00Z',
-      },
-      {
-        id: 2,
-        courseId: 102,
-        name: 'John Doe',
-        email: 'john@example.com',
-        reviewComment: 'Very helpful and well-structured.',
-        starsOfTheReview: 4,
-        reviewDate: '2025-07-12T15:30:00Z',
-      },
-    ];
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews');
+      const data = await res.json();
 
-    setReviews(mockReviews);
-  }, []);
+      if (Array.isArray(data)) {
+        setReviews(data);
+      } else {
+        console.error('Invalid review format:', data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch reviews:', err);
+    }
+  };
+
+  fetchReviews();
+}, []);
 
   return (
     <AdminLayout>
@@ -50,7 +43,9 @@ export default function AdminReviewsPage() {
         <div className="header">
           <h2>Manage Reviews</h2>
         </div>
-        <ReviewTable data={reviews} />
+        <ReviewTable data={reviews} onDeleteSuccess={(id) => {
+  setReviews(prev => prev.filter(r => r.id !== id));
+}} />
       </div>
     </AdminLayout>
   );

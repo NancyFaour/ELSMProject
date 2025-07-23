@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import LogoutButton from './LogoutButton';
 import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
@@ -11,8 +11,15 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-export default function Header() {
+export default function AuthorizedHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+    setIsLoggedIn(!!token); // true if token exists
+  }, []);
 
   return (
     <header className="header-container">
@@ -55,12 +62,22 @@ export default function Header() {
         </button>
 
         <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
-          <a href="/">HOME</a>
+          <a href="/Home">HOME</a>
           <a href="/Course">COURSES</a>
           <a href="/Contact">CONTACT</a>
+
           <div className="auth-buttons">
-            <a href="/login" className="login-btn">Login</a>
-            <a href="/register" className="register-btn">Register</a>
+            {isLoggedIn ? (
+              <>
+                <a href="/Profile">PROFILE</a>
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <a href="/login">LOGIN</a>
+                <a href="/register">REGISTER</a>
+              </>
+            )}
           </div>
         </nav>
       </div>
