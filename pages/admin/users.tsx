@@ -10,28 +10,44 @@ export type User = {
   id: number;
   username: string;
   email: string;
-  role: string;
+  roleId: number;
   createdAt: string;
+};
+
+export type Role = {
+  id: number;
+  name: string;
 };
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUser, setEditUser] = useState<User | null>(null);
 
+  // Load users and roles
   useEffect(() => {
-    async function fetchUsers() {
+    async function fetchData() {
       try {
-        const res = await fetch('/api/users');
-        if (!res.ok) throw new Error('Failed to fetch users');
-        const data = await res.json();
-        setUsers(data);
+        const [userRes, roleRes] = await Promise.all([
+          fetch('/api/users'),
+          fetch('/api/WebRole'),
+        ]);
+
+        if (!userRes.ok || !roleRes.ok) throw new Error('Failed to load data');
+
+        const usersData = await userRes.json();
+        const rolesData = await roleRes.json();
+
+        setUsers(usersData);
+        setRoles(rolesData);
       } catch (err) {
-        console.error('Failed to load users:', err);
-        alert('Error loading users. Please try again later.');
+        console.error('Failed to load users or roles:', err);
+        alert('Error loading users or roles. Please try again later.');
       }
     }
-    fetchUsers();
+
+    fetchData();
   }, []);
 
   const handleAdd = () => {
@@ -51,8 +67,9 @@ export default function AdminUsersPage() {
 
   const handleSave = async (user: User) => {
     try {
-      const isEditing = !!editUser;
-      const url = isEditing ? `/api/users?id=${editUser?.id}` : '/api/users';
+      const isEditing = user.id !== 0;
+      // Use id in the URL path for update
+      const url = isEditing ? `/api/users/?id=${user.id}` : '/api/users';
       const method = isEditing ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -66,7 +83,7 @@ export default function AdminUsersPage() {
         throw new Error(`Save failed: ${text}`);
       }
 
-      const savedUser = await res.json();
+      const savedUser: User = await res.json();
 
       setUsers((prev) =>
         isEditing
@@ -81,17 +98,21 @@ export default function AdminUsersPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
-    try {
-      const res = await fetch(`/api/users?id=${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error(await res.text());
-      setUsers((prev) => prev.filter((u) => u.id !== id));
-    } catch (err: any) {
-      console.error('Delete error:', err);
-      alert(`Error deleting user: ${err.message}`);
+const handleDelete = async (id: number) => {
+  if (!confirm('Are you sure you want to delete this user?')) return;
+  try {
+    const res = await fetch(`/api/users?id=${id}`, { method: 'DELETE' });
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText || 'Failed to delete user');
     }
-  };
+    setUsers((prev) => prev.filter((u) => u.id !== id));
+  } catch (err: any) {
+    console.error('Delete error:', err);
+    alert(`Error deleting user: ${err.message}`);
+  }
+};
+
 
   return (
     <AdminLayout>
@@ -100,10 +121,18 @@ export default function AdminUsersPage() {
           <h2>Manage Users</h2>
           <button className="add-button" onClick={handleAdd}>Add User</button>
         </div>
-        <UserTable data={users} onEdit={handleEdit} onDelete={handleDelete} />
+
+        <UserTable
+          data={users}
+          roles={roles}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+
         {isModalOpen && (
           <UserFormModal
             user={editUser}
+            roles={roles}
             onClose={handleCloseModal}
             onSave={handleSave}
           />

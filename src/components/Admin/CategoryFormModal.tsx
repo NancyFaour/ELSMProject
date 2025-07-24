@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 type Category = {
   id?: number;
   name: string;
-  courseCount?: number; // optional if not edited here
+  courseCount?: number; 
 };
 
 type Props = {
   category: Category | null;
   onClose: () => void;
-  onSave: (category: Category) => void; // 🔧 Accepts Category with optional ID
+  onSave: (category: Category) => void; 
 };
 
 export default function CategoryFormModal({ category, onClose, onSave }: Props) {

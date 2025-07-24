@@ -6,62 +6,55 @@ export type User = {
   id: number;
   username: string;
   email: string;
-  role: string;
+  roleId: number;
   createdAt: string;
+};
+
+type Role = {
+  id: number;
+  name: string;
 };
 
 type Props = {
   user: User | null;
+  roles: Role[];              
   onClose: () => void;
   onSave: (user: User) => void;
 };
 
-export default function UserFormModal({ user, onClose, onSave }: Props) {
+export default function UserFormModal({ user, roles, onClose, onSave }: Props) {
   const [formData, setFormData] = useState<User>({
     id: user?.id ?? 0,
     username: user?.username ?? '',
     email: user?.email ?? '',
-    role: user?.role ?? '',
+    roleId: user?.roleId ?? 0,
     createdAt: user?.createdAt ?? new Date().toISOString(),
   });
 
-  const [roles, setRoles] = useState<any[]>([]); 
-
   useEffect(() => {
-    if (user) {
-      setFormData(user);
-    } else {
-      setFormData({
-        id: 0,
-        username: '',
-        email: '',
-        role: '',
-        createdAt: new Date().toISOString(),
-      });
-    }
+    setFormData({
+      id: user?.id ?? 0,
+      username: user?.username ?? '',
+      email: user?.email ?? '',
+      roleId: user?.roleId ?? 0,
+      createdAt: user?.createdAt ?? new Date().toISOString(),
+    });
   }, [user]);
-
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const res = await fetch('/api/WebRole');
-        const data = await res.json();
-        setRoles(data);
-      } catch (err) {
-        console.error('Failed to load roles:', err);
-      }
-    };
-
-    fetchRoles();
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === 'roleId' ? Number(value) : value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.roleId) {
+      alert('Please select a role');
+      return;
+    }
     onSave(formData);
   };
 
@@ -90,25 +83,27 @@ export default function UserFormModal({ user, onClose, onSave }: Props) {
             required
           />
 
-          <label htmlFor="role">Role:</label>
+          <label htmlFor="roleId">Role:</label>
           <select
-            id="role"
-            name="role"
-            value={formData.role}
+            id="roleId"
+            name="roleId"
+            value={formData.roleId}
             onChange={handleChange}
             required
           >
-            <option value="">Select Role</option>
+            <option value="">Select a role</option>
             {roles.map((role) => (
-              <option key={role.id} value={role.roleName}>
-                {role.roleName}
+              <option key={role.id} value={role.id}>
+                {role.name}
               </option>
             ))}
           </select>
 
-          <div className="form-actions">
+          <div className="form-actions" style={{ marginTop: 20 }}>
             <button type="submit">{user ? 'Update' : 'Create'}</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="button" onClick={onClose} style={{ marginLeft: 10 }}>
+              Cancel
+            </button>
           </div>
         </form>
       </div>
