@@ -21,6 +21,7 @@ export default function VideoList({ sessionId }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const fetchVideos = async () => {
@@ -47,7 +48,9 @@ export default function VideoList({ sessionId }: Props) {
     if (!confirm('Delete this video?')) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/courseSession?videos=true&videoId=${videoId}`, { method: 'DELETE' });
+      const res = await fetch(`/api/courseSession?videos=true&videoId=${videoId}`, {
+        method: 'DELETE',
+      });
       if (!res.ok) throw new Error('Failed to delete video');
       await fetchVideos();
     } catch (err) {
@@ -58,13 +61,31 @@ export default function VideoList({ sessionId }: Props) {
     }
   };
 
+  const openAddModal = () => {
+    setSelectedVideo(null);
+    setIsEdit(false);
+    setShowModal(true);
+  };
+
+  const openEditModal = (video: Video) => {
+    setSelectedVideo(video);
+    setIsEdit(true);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedVideo(null);
+    setIsEdit(false);
+    fetchVideos();
+  };
+
   return (
     <div className="border p-4 rounded shadow">
       <div className="flex justify-between items-center mb-2">
         <h4 className="font-semibold">Videos</h4>
         <button
-          aria-label="Add new video"
-          onClick={() => { setSelectedVideo(null); setShowModal(true); }}
+          onClick={openAddModal}
           className="bg-blue-500 text-white px-3 py-1 rounded"
           disabled={loading}
         >
@@ -78,12 +99,14 @@ export default function VideoList({ sessionId }: Props) {
         <p className="text-gray-500">No videos yet.</p>
       ) : (
         <ul className="space-y-2">
-          {videos.map(video => (
-            <li key={video.id} className="border p-2 rounded flex justify-between items-center">
-              <span>{video.title}</span>
+          {videos.map((video) => (
+            <li
+              key={video.id}
+              className="border p-2 rounded flex justify-between items-center"
+            >
+              <span className="truncate max-w-[60%]">{video.title}</span>
               <div className="space-x-2">
                 <button
-                  aria-label={`Preview video ${video.title}`}
                   onClick={() => setSelectedVideo(video)}
                   className="text-blue-600"
                   disabled={loading}
@@ -91,15 +114,13 @@ export default function VideoList({ sessionId }: Props) {
                   Preview
                 </button>
                 <button
-                  aria-label={`Edit video ${video.title}`}
-                  onClick={() => { setSelectedVideo(video); setShowModal(true); }}
+                  onClick={() => openEditModal(video)}
                   className="text-green-600"
                   disabled={loading}
                 >
                   Edit
                 </button>
                 <button
-                  aria-label={`Delete video ${video.title}`}
                   onClick={() => handleDelete(video.id)}
                   className="text-red-600"
                   disabled={loading}
@@ -115,15 +136,18 @@ export default function VideoList({ sessionId }: Props) {
       {showModal && (
         <VideoFormModal
           sessionId={sessionId}
-          video={selectedVideo}
-          onClose={() => {
-            setShowModal(false);
-            fetchVideos();
-          }}
+          video={selectedVideo ?? undefined}
+          isEdit={isEdit}
+          onClose={handleCloseModal}
         />
       )}
 
-      {selectedVideo && !showModal && <VideoPlayer video={selectedVideo} />}
+      {selectedVideo && !showModal && (
+        <div className="mt-6">
+          <h4 className="font-semibold">Preview</h4>
+          <VideoPlayer video={selectedVideo} />
+        </div>
+      )}
     </div>
   );
 }
