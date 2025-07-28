@@ -1,10 +1,19 @@
 'use client';
-import fetch from 'node-fetch';
+
 import "@/css/style.css";
 import AdminLayout from '@/components/Admin/AdminLayout';
 import CategoryTable from '@/components/Admin/CategoryTable';
 import CategoryFormModal from '@/components/Admin/CategoryFormModal';
+
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store';
+import {
+  fetchCategories,
+  addCategory,
+  updateCategory,
+  deleteCategory,
+} from '@/redux/slices/categorySlice';
 
 type Category = {
   id?: number;
@@ -13,30 +22,17 @@ type Category = {
 };
 
 export default function AdminCategoriesPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const dispatch: AppDispatch = useDispatch();
+  const { list: categories, loading, error } = useSelector(
+    (state: RootState) => state.categories
+  );
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editCategory, setEditCategory] = useState<Category | null>(null);
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
-
- const fetchCategories = async () => {
-  try {
-    const response = await fetch('/api/categories');
-    const data = await response.json();
-
-    if (Array.isArray(data)) {
-      setCategories(data);
-    } else {
-      console.error('Invalid data format:', data);
-      setCategories([]);
-    }
-  } catch (err) {
-    console.error('Failed to fetch categories:', err);
-    setCategories([]);
-  }
-};
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const handleAddClick = () => {
     setEditCategory(null);
@@ -52,7 +48,7 @@ export default function AdminCategoriesPage() {
     if (!id) return;
     try {
       await fetch(`/api/categories?id=${id}`, { method: 'DELETE' });
-      fetchCategories();
+      dispatch(deleteCategory(id));
     } catch (err) {
       console.error('Failed to delete category:', err);
     }
@@ -72,13 +68,19 @@ export default function AdminCategoriesPage() {
         body: JSON.stringify({
           id: editCategory ? category.id : 0,
           name: category.name,
-          courseCount: 0, // backend expects this
+          courseCount: 0,
         }),
       });
 
       if (!response.ok) throw new Error('Save failed');
+      const data = await response.json();
 
-      fetchCategories();
+      if (editCategory) {
+        dispatch(updateCategory(data));
+      } else {
+        dispatch(addCategory(data));
+      }
+
       handleCloseModal();
     } catch (err) {
       console.error('Failed to save category:', err);
@@ -90,9 +92,19 @@ export default function AdminCategoriesPage() {
       <div className="admin-categories">
         <div className="header">
           <h2>Manage Categories</h2>
-          <button className="add-button" onClick={handleAddClick}>Add Category</button>
+          <button className="add-button" onClick={handleAddClick}>
+            Add Category
+          </button>
         </div>
-        <CategoryTable data={categories} onEdit={handleEdit} onDelete={handleDelete} />
+
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p style={{ color: 'red' }}>Error: {error}</p>
+        ) : (
+          <CategoryTable data={categories} onEdit={handleEdit} onDelete={handleDelete} />
+        )}
+
         {isModalOpen && (
           <CategoryFormModal
             category={editCategory}

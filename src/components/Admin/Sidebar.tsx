@@ -4,7 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { label: 'Categories', href: '/admin/categories' },
+  { label: 'Categories',
+     href: '/admin/categories',
+  
+    children: [
+      { label: 'Add Categories', href: '/admin/categories' }
+    ],
+
+   },
   { 
     label: 'Courses', 
     href: '/admin/courses',
