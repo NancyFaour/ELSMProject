@@ -1,58 +1,41 @@
-// pages/api/categories.js
-import fetch from 'node-fetch'; // Ensure you have node-fetch installed
+import axios from 'axios';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 export default async function handler(req, res) {
   const BASE_URL = 'https://localhost:7177/api/Courses';
   const { method } = req;
 
   try {
-    if (method === 'GET') {
-      const response = await fetch(`${BASE_URL}/GetCategoriesWithCount`);
-      const text = await response.text();
+   if (method === 'GET') {
+  const response = await axios.get(`${BASE_URL}/GetCategoriesWithCount`);
+  const data = response.data;
 
-      // Try to parse JSON
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        console.error('Invalid JSON:', text);
-        return res.status(500).json({ error: 'Invalid JSON response from backend', raw: text });
-      }
+  if (!data) {
+    return res.status(404).json({ error: 'No categories found' });
+  }
 
-      return res.status(200).json(data);
+  return res.status(200).json(data); 
+
+
     } else if (method === 'POST') {
-      // Add a new category
-      const body = req.body;
-      const response = await fetch(`${BASE_URL}/AddCategories`, {
-        method: 'POST',
+      const response = await axios.post(`${BASE_URL}/AddCategories`, req.body, {
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error('Failed to add category');
-      const data = await response.json();
-      return res.status(201).json(data);
+
+      return res.status(201).json(response.data);
 
     } else if (method === 'PUT') {
-      // Update an existing category
-      const body = req.body;
-      const response = await fetch(`${BASE_URL}/UpdateCategory`, {
-        method: 'PUT',
+      const response = await axios.put(`${BASE_URL}/UpdateCategory`, req.body, {
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error('Failed to update category');
-      const data = await response.json();
-      return res.status(200).json(data);
+
+      return res.status(200).json(response.data);
 
     } else if (method === 'DELETE') {
-      // Delete a category by ID (passed via query)
       const { id } = req.query;
       if (!id) return res.status(400).json({ error: 'Missing category ID' });
 
-      const response = await fetch(`${BASE_URL}/DeleteCategory/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Failed to delete category');
+      await axios.delete(`${BASE_URL}/DeleteCategory/${id}`);
       return res.status(200).json({ message: 'Category deleted successfully' });
 
     } else {
@@ -60,7 +43,10 @@ export default async function handler(req, res) {
     }
 
   } catch (error) {
-    console.error('Category API Error:', error);
-    return res.status(500).json({ error: error.message || 'Internal Server Error' });
+    console.error('Category API Error:', error.response?.data || error.message);
+    return res.status(500).json({
+      error: error.message || 'Internal Server Error',
+      details: error.response?.data
+    });
   }
 }

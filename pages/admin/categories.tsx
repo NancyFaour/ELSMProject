@@ -13,6 +13,7 @@ import {
   addCategory,
   updateCategory,
   deleteCategory,
+  setIsModalOpen,
 } from '@/redux/slices/categorySlice';
 
 type Category = {
@@ -23,11 +24,11 @@ type Category = {
 
 export default function AdminCategoriesPage() {
   const dispatch: AppDispatch = useDispatch();
-  const { list: categories, loading, error } = useSelector(
+  const { list: categories, loading, error, isModalOpen } = useSelector(
     (state: RootState) => state.categories
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+ 
   const [editCategory, setEditCategory] = useState<Category | null>(null);
 
   useEffect(() => {
@@ -36,12 +37,12 @@ export default function AdminCategoriesPage() {
 
   const handleAddClick = () => {
     setEditCategory(null);
-    setIsModalOpen(true);
+    dispatch(setIsModalOpen(true));
   };
 
   const handleEdit = (category: Category) => {
     setEditCategory(category);
-    setIsModalOpen(true);
+    dispatch(setIsModalOpen(true));
   };
 
   const handleDelete = async (id?: number) => {
@@ -56,7 +57,7 @@ export default function AdminCategoriesPage() {
 
   const handleCloseModal = () => {
     setEditCategory(null);
-    setIsModalOpen(false);
+    dispatch(setIsModalOpen(false));
   };
 
   const handleSave = async (category: Category) => {

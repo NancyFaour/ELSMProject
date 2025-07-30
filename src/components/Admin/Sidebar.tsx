@@ -1,22 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setIsModalOpen } from '@/redux/slices/categorySlice';
 
 const navItems = [
-  { label: 'Categories',
-     href: '/admin/categories',
-  
+  {
+    label: 'Categories',
+    href: '/admin/categories',
     children: [
-      { label: 'Add Categories', href: '/admin/categories' }
+      { label: 'Add Categories', href: '/admin/categories', action: 'addCategory' },
     ],
-
-   },
-  { 
-    label: 'Courses', 
+  },
+  {
+    label: 'Courses',
     href: '/admin/courses',
-    children: [
-      { label: 'Course Sessions', href: '/admin/courseSessions' }
+    children2: [
+      { label: 'Course Sessions', href: '/admin/courseSessions' },
     ],
   },
   { label: 'Reviews', href: '/admin/reviews' },
@@ -26,6 +27,20 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleClick = (href: string, action?: string) => (e: React.MouseEvent) => {
+    if (action) {
+      e.preventDefault();
+    }
+
+    if (action === 'addCategory' && pathname === '/admin/categories') {
+      dispatch(setIsModalOpen(true));
+    } else {
+      router.push(href);
+    }
+  };
 
   return (
     <aside className="sidebar">
@@ -43,10 +58,25 @@ export default function Sidebar() {
               <ul className="sidebar-submenu">
                 {item.children.map((child) => (
                   <li key={child.href}>
-                    <Link href={child.href}>
-                      <span className={`sidebar-link sub-label ${pathname === child.href ? 'active' : ''}`}>
-                        {child.label}
-                      </span>
+                    <a
+                      href={child.href}
+                      onClick={handleClick(child.href, child.action)}
+                      className={`sidebar-link sub-label ${
+                        pathname === child.href ? 'active' : ''
+                      }`}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {item.children2 && (
+              <ul className="sidebar-submenu">
+                {item.children2.map((child) => (
+                  <li key={child.href}>
+                    <Link href={child.href} className={`sidebar-link sub-label ${pathname === child.href ? 'active' : ''}`}>
+                      {child.label}
                     </Link>
                   </li>
                 ))}
