@@ -69,5 +69,4 @@ export default function* categorySaga() {
   yield takeEvery(addCategorySaga.type, addCategoryWorker);
   yield takeEvery(updateCategorySaga.type, updateCategoryWorker);
   yield takeEvery(deleteCategorySaga.type, deleteCategoryWorker);
-
 }
